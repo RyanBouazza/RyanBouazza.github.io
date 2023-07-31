@@ -26,12 +26,17 @@ ul {
   list-style: square;
 }
 
+.header {
+  background-color: white;
+  padding: 32px;
+}
+
 .wrapper {
   max-width: 1260px;
   margin: auto;
 }
 
-.grid {
+.main-grid {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 24px;

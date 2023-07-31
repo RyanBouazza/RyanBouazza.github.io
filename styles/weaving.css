@@ -1,0 +1,62 @@
+.square {
+  height: 30px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.false {
+  background-color: white;
+}
+
+.true {
+  background-color: black;
+}
+
+.square-input.false:hover {
+  background-color: rgb(231, 231, 231);
+}
+
+.square-input.true:hover {
+  background-color: rgb(45, 45, 45);
+}
+
+.inputs {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.loom {
+  display: grid;
+  grid-template-areas:
+    'heddles pattern'
+    'grid pedals';
+  gap: 16px;
+}
+
+.loom__heddles {
+  grid-area: heddles;
+  display: grid;
+  grid-auto-flow: column;
+  direction: rtl;
+}
+
+.loom__pattern {
+  grid-area: pattern;
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.loom__grid {
+  grid-area: grid;
+  display: grid;
+  direction: rtl;
+}
+
+.loom__grid .square {
+  cursor: default;
+}
+
+.loom__pedals {
+  grid-area: pedals;
+  display: grid;
+}
