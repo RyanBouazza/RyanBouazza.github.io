@@ -28,13 +28,13 @@
 .loom {
   display: grid;
   grid-template-areas:
-    'heddles pattern'
+    'shafts pattern'
     'grid pedals';
   gap: 16px;
 }
 
-.loom__heddles {
-  grid-area: heddles;
+.loom__shafts {
+  grid-area: shafts;
   display: grid;
   grid-auto-flow: column;
   direction: rtl;

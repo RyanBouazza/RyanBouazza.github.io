@@ -1,22 +1,22 @@
 (function() {
   const columnsCount = Number(document.querySelector('#columns').value);
   const rowsCount = Number(document.querySelector('#rows').value);
-  const heddlesCount = Number(document.querySelector('#heddles').value);
+  const shaftsCount = Number(document.querySelector('#shafts').value);
   const pedalsCount = Number(document.querySelector('#pedals').value);
 
   const loomElement = document.querySelector('.loom');
   loomElement.style.setProperty('grid-template-columns', `${columnsCount}fr ${pedalsCount}fr`);
 
-  const heddlesElement = document.querySelector('.loom__heddles');
-  heddlesElement.style.setProperty('grid-template-rows', `repeat(${heddlesCount}, 1fr)`);
-  heddlesElement.addEventListener('click', toggleSquare);
+  const shaftsElement = document.querySelector('.loom__shafts');
+  shaftsElement.style.setProperty('grid-template-rows', `repeat(${shaftsCount}, 1fr)`);
+  shaftsElement.addEventListener('click', toggleSquare);
 
   const pedalsElement = document.querySelector('.loom__pedals');
   pedalsElement.style.setProperty('grid-template-columns', `repeat(${pedalsCount}, 1fr)`);
   pedalsElement.addEventListener('click', toggleSquare);
 
   const patternElement = document.querySelector('.loom__pattern');
-  patternElement.style.setProperty('grid-template-rows', `repeat(${heddlesCount}, 1fr)`);
+  patternElement.style.setProperty('grid-template-rows', `repeat(${shaftsCount}, 1fr)`);
   patternElement.addEventListener('click', toggleSquare);
 
   const gridElement = document.querySelector('.loom__grid');
@@ -30,30 +30,30 @@
   gridSquareElement.classList.add('square', 'false');
 
   const pedalsArray = Array(columnsCount);
-  const heddlesArray = Array(rowsCount);
+  const shaftsArray = Array(rowsCount);
   const patternArray = Array(pedalsCount);
   const gridArray = Array(rowsCount);
 
   function init() {
-    // initialize heddles squares  
+    // initialize shafts squares  
     for (let i = 0; i < rowsCount; i++) {
-      heddlesArray[i] = Array(heddlesCount).fill(false);
+      shaftsArray[i] = Array(shaftsCount).fill(false);
     }
   
-    for (let i = 0; i < heddlesArray.length; i++) {
-      for (let j = 0; j < heddlesArray[i].length; j++) {
+    for (let i = 0; i < shaftsArray.length; i++) {
+      for (let j = 0; j < shaftsArray[i].length; j++) {
         const square = squareElement.cloneNode(true);
         square.dataset.x = i;
         square.dataset.y = j;
-        square.dataset.grid = 'heddles';
-        heddlesElement.appendChild(square);
+        square.dataset.grid = 'shafts';
+        shaftsElement.appendChild(square);
       }
     }
   
     // initialize pattern squares
   
     for (let i = 0; i < pedalsCount; i++) {
-      patternArray[i] = Array(heddlesCount).fill(false);
+      patternArray[i] = Array(shaftsCount).fill(false);
     }
   
     for (let i = 0; i < patternArray.length; i++) {
@@ -118,7 +118,7 @@
     const x = square.dataset.x;
     const y = square.dataset.y;
 
-    if (grid === 'heddles' && !array[x][y] && array[x].includes(true)) {
+    if (grid === 'shafts' && !array[x][y] && array[x].includes(true)) {
       activeSquareIndex = array[x].indexOf(true);
       array[x][activeSquareIndex] = false;
       const activeSquareElement = document.querySelector(`[data-grid="${grid}"][data-x="${x}"][data-y="${activeSquareIndex}"]`);
@@ -130,8 +130,8 @@
 
   function calculateSquare(x, y) {
     for (let i = 0; i < pedalsCount; i++) {
-      for (let j = 0; j < heddlesCount; j++) {
-        if (pedalsArray[x][i] && (heddlesArray[y][j] && !patternArray[i][j])) {
+      for (let j = 0; j < shaftsCount; j++) {
+        if (pedalsArray[x][i] && (shaftsArray[y][j] && !patternArray[i][j])) {
           return true;
         }
       }
@@ -144,7 +144,7 @@
     for (let x = 0; x < rowsCount; x++) {
       for (let y = 0; y < columnsCount; y++) {
         const square = document.querySelector(`[data-grid="grid"][data-x="${x}"][data-y="${y}"]`);
-        if (pedalsArray[x].includes(true) && heddlesArray[y].includes(true)) {
+        if (pedalsArray[x].includes(true) && shaftsArray[y].includes(true)) {
           squareState = calculateSquare(x, y);
           gridArray[x][y] = squareState;
           setSquareClasses(square, squareState);
@@ -156,7 +156,7 @@
     }
   }
 
-  // click event handler for heddle, pedal and pattern squares
+  // click event handler for shaft, pedal and pattern squares
   function toggleSquare(e) {
     if (e.target.classList.contains('square')) {
       const square = e.target;
@@ -166,8 +166,8 @@
 
       // Update side grid arrays and classes
       switch (square.dataset.grid) {
-        case 'heddles':
-          renderSideGrid(e, heddlesArray);
+        case 'shafts':
+          renderSideGrid(e, shaftsArray);
           break;
 
         case 'pedals':
